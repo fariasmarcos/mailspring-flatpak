@@ -1,0 +1,93 @@
+{
+    "app-id": "com.foundry376.Mailspring",
+    "base": "org.electronjs.Electron2.BaseApp",
+    "base-version": "20.08",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "40",
+    "sdk": "org.gnome.Sdk",
+    "command": "mailspring",
+    "separate-locales": false,
+    "finish-args": [
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=pulseaudio",
+        "--socket=cups",
+        "--share=network",
+        "--device=all",
+        "--filesystem=home:ro",
+        "--filesystem=xdg-download",
+        "--talk-name=org.freedesktop.secrets",
+        "--system-talk-name=org.freedesktop.login1",
+        "--talk-name=org.freedesktop.Notifications",
+        "--talk-name=org.kde.StatusNotifierWatcher",
+        "--talk-name=com.canonical.AppMenu.Registrar"
+    ],
+    "modules": [
+        {
+            "name": "mailspring",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install apply_extra ${FLATPAK_DEST}/bin",
+                "install mailspring.sh ${FLATPAK_DEST}/bin/mailspring",
+                "install -Dm644 com.foundry376.Mailspring.appdata.xml ${FLATPAK_DEST}/share/appdata/${FLATPAK_ID}.appdata.xml",
+                "install -Dm644 mailspring.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png",
+                "install -Dm644 mailspring-symbolic.png ${FLATPAK_DEST}/share/icons/hicolor/symbolic/apps/${FLATPAK_ID}-symbolic.png",
+                "install -Dm644 Mailspring.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop",
+                "desktop-file-edit --set-key=\"Icon\" --set-value=\"com.foundry376.Mailspring\" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop",
+                "desktop-file-edit --set-key=\"Exec\" --set-value=\"mailspring %U\" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop",
+                "desktop-file-edit --set-key=\"StartupWMClass\" --set-value=\"Mailspring\" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop",
+                "desktop-file-edit --set-key=\"X-Flatpak-RenamedFrom\" --set-value=\"Mailspring.desktop;\" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop",
+                "install -Dm755 /usr/bin/ar -t ${FLATPAK_DEST}/bin",
+                "install -Dm755 /usr/lib/$(gcc -print-multiarch)/libbfd-*.so -t ${FLATPAK_DEST}/lib"
+            ],
+            "sources": [
+                {
+                    "type": "script",
+                    "dest-filename": "apply_extra",
+                    "commands": [
+                        "ar x mailspring.deb",
+                        "rm -f mailspring.deb",
+                        "tar xf data.tar.xz",
+                        "rm -f control.tar.gz data.tar.xz debian-binary",
+                        "mv usr/* .",
+                        "chmod -R a-s,go+rX,go-w .",
+                        "rmdir usr"
+                    ]
+                },
+                {
+                    "type": "script",
+                    "dest-filename": "mailspring.sh",
+                    "commands": [
+                        "exec env TMPDIR=$XDG_CACHE_HOME zypak-wrapper /app/extra/bin/mailspring \"$@\""
+                    ]
+                },
+                {
+                    "type": "file",
+                    "path": "com.foundry376.Mailspring.appdata.xml"
+                },
+                {
+                    "type": "file",
+                    "path": "mailspring.png"
+                },
+                {
+                    "type": "file",
+                    "path": "mailspring-symbolic.png"
+                },
+                {
+                    "type": "file",
+                    "path": "Mailspring.desktop"
+                },
+                {
+                    "type": "extra-data",
+                    "filename": "mailspring.deb",
+                    "only-arches": [
+                        "x86_64"
+                    ],
+                    "url": "https://github.com/Foundry376/Mailspring/releases/download/1.9.1/mailspring-1.9.1-amd64.deb",
+                    "sha256": "99fa700d84691542c3f5387cb48e72a9be516166491daadb598a5f292dd0ea61",
+                    "size": 87784166
+                }
+            ]
+        }
+    ]
+}
