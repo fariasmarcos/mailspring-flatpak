@@ -1,6 +1,6 @@
 ### ⚠️ Warning: This repository is for testing purposes only! ⚠️
 
-Not all use cases have been tested. If you find something that isn't working, please let me know by open an issue.
+Not all use cases have been tested. If you find something that isn't working, please let me know by opening an issue.
 
 # Mailspring on Flatpak
 The best email app for people and teams at work. This repository allows installing Mailspring through Flatpak.
