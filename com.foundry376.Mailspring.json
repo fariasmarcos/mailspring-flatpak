@@ -83,9 +83,9 @@
                     "only-arches": [
                         "x86_64"
                     ],
-                    "url": "https://github.com/Foundry376/Mailspring/releases/download/1.9.1/mailspring-1.9.1-amd64.deb",
-                    "sha256": "99fa700d84691542c3f5387cb48e72a9be516166491daadb598a5f292dd0ea61",
-                    "size": 87784166
+                    "url": "https://github.com/Foundry376/Mailspring/releases/download/1.9.2/mailspring-1.9.2-amd64.deb",
+                    "sha256": "a3bc365c77791673d8b7d8fc2081b2e8e80ab5d78d6ffa99f848971849f43544",
+                    "size": 88917330
                 }
             ]
         }
