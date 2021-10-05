@@ -1,10 +1,10 @@
 {
     "app-id": "com.foundry376.Mailspring",
     "base": "org.electronjs.Electron2.BaseApp",
-    "base-version": "20.08",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "40",
-    "sdk": "org.gnome.Sdk",
+    "base-version": "21.08",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "21.08",
+    "sdk": "org.freedesktop.Sdk",
     "command": "mailspring",
     "separate-locales": false,
     "finish-args": [
@@ -23,6 +23,7 @@
         "--talk-name=com.canonical.AppMenu.Registrar"
     ],
     "modules": [
+        "shared-modules/libsecret/libsecret.json",
         {
             "name": "mailspring",
             "buildsystem": "simple",
